@@ -130,7 +130,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./backend
-          file: ./backend/dockerfile
+          file: ./backend/Dockerfile
           push: true
           tags: ghcr.io/${{ steps.image.outputs.repository }}-backend:${{ steps.image.outputs.tag }}
 
@@ -138,7 +138,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
-          file: ./frontend/dockerfile
+          file: ./frontend/Dockerfile
           push: true
           build-args: |
             VITE_API_BASE_URL=/api
