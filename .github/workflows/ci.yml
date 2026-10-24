@@ -43,9 +43,11 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-interaction
 
       - name: Prepare Laravel environment
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
         run: |
           cp .env.example .env
-          php artisan key:generate
+          php artisan config:clear
 
       - name: Run Laravel tests
         env:
