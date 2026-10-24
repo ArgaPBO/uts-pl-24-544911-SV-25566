@@ -43,8 +43,6 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-interaction
 
       - name: Prepare Laravel environment
-        env:
-          APP_KEY: ${{ secrets.APP_KEY }}
         run: |
           cp .env.example .env
           php artisan config:clear
@@ -52,6 +50,7 @@ jobs:
       - name: Run Laravel tests
         env:
           APP_ENV: testing
+          APP_KEY: ${{ secrets.APP_KEY }}
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
           SESSION_DRIVER: array
