@@ -45,11 +45,12 @@ jobs:
       - name: Prepare Laravel environment
         run: |
           cp .env.example .env
-          php artisan key:generate
+          php artisan config:clear
 
       - name: Run Laravel tests
         env:
           APP_ENV: testing
+          APP_KEY: ${{ secrets.APP_KEY }}
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
           SESSION_DRIVER: array
