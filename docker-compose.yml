@@ -45,6 +45,21 @@ services:
       - sh
       - -lc
       - php artisan migrate --force && exec frankenphp run --config /etc/caddy/Caddyfile --adapter caddyfile
+    healthcheck:
+      test:
+        - CMD
+        - php
+        - -r
+        - "exit(@file_get_contents('http://127.0.0.1:8000/api/health') !== false ? 0 : 1);"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     networks:
       - argauts-network
 
